@@ -82,6 +82,14 @@
     [self updateSubDisplayText:operation clearWhenOverflowing:NO];
 }
 
+- (IBAction)clearPressed {
+    self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.userAlreadyEnterdFloatingPoint = NO;
+    self.display.text = @"0";
+    self.subDisplay.text = @"";
+    [self.brain clear];
+}
+
 - (void)viewDidUnload {
     [self setSubDisplay:nil];
     [super viewDidUnload];
