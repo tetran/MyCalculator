@@ -54,6 +54,7 @@
 
 #define MAX_TEXT_LENGTH_IN_SUBDISPLAY 30
 
+// TODO history表示については再考の余地がある
 - (void)updateSubDisplayText:(NSString *)aText clearWhenOverflowing:(BOOL) clearWhenOverflowing {
     if (clearWhenOverflowing 
             && MAX_TEXT_LENGTH_IN_SUBDISPLAY < self.subDisplay.text.length + aText.length) {
