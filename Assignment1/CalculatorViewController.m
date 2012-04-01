@@ -18,6 +18,7 @@
 @implementation CalculatorViewController
 
 @synthesize display = _display;
+@synthesize subDisplay = _subDisplay;
 @synthesize userIsInTheMiddleOfEnteringANumber= _userIsInTheMiddleOfEnteringANumber;
 @synthesize userAlreadyEnterdFloatingPoint = _userAlreadyEnterdFloatingPoint;
 @synthesize brain = _brain;
@@ -48,13 +49,25 @@
             self.userAlreadyEnterdFloatingPoint = YES;
         }
     }
+
 }
 
+#define MAX_TEXT_LENGTH_IN_SUBDISPLAY 30
+
+- (void)updateSubDisplayText:(NSString *)aText clearWhenOverflowing:(BOOL) clearWhenOverflowing {
+    if (clearWhenOverflowing 
+            && MAX_TEXT_LENGTH_IN_SUBDISPLAY < self.subDisplay.text.length + aText.length) {
+        self.subDisplay.text = aText;
+    } else {
+        self.subDisplay.text = [self.subDisplay.text stringByAppendingFormat:@" %@", aText];   
+    }
+}
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.userAlreadyEnterdFloatingPoint = NO;
+    [self updateSubDisplayText:self.display.text clearWhenOverflowing:YES];
 }
 
 
@@ -66,5 +79,11 @@
     NSString *operation = [sender currentTitle];
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g", result];
+    [self updateSubDisplayText:operation clearWhenOverflowing:NO];
+}
+
+- (void)viewDidUnload {
+    [self setSubDisplay:nil];
+    [super viewDidUnload];
 }
 @end
