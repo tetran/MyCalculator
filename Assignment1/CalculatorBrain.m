@@ -45,7 +45,7 @@
     
     if ([operation isEqualToString:@"+"]) {
         result = [self popOperand] + [self popOperand];
-    } else if ([operation isEqualToString:@"+"]) {
+    } else if ([operation isEqualToString:@"*"]) {
         result = [self popOperand] * [self popOperand];
     } else if ([operation isEqualToString:@"-"]) {
         double subtrahend = [self popOperand];
