@@ -11,7 +11,7 @@
 
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
-@property (nonatomic) BOOL userAlreadyEnterdFloatingPoint;
+@property (nonatomic) BOOL userAlreadyEnteredFloatingPoint;
 @property (nonatomic, strong) CalculatorBrain *brain;
 @end
 
@@ -20,7 +20,7 @@
 @synthesize display = _display;
 @synthesize subDisplay = _subDisplay;
 @synthesize userIsInTheMiddleOfEnteringANumber= _userIsInTheMiddleOfEnteringANumber;
-@synthesize userAlreadyEnterdFloatingPoint = _userAlreadyEnterdFloatingPoint;
+@synthesize userAlreadyEnteredFloatingPoint = _userAlreadyEnterdFloatingPoint;
 @synthesize brain = _brain;
 
 - (CalculatorBrain *)brain {
@@ -35,10 +35,10 @@
     if (self.userIsInTheMiddleOfEnteringANumber) {
         // avoid input of duplicate floating points
         if ([digit isEqualToString:@"."]) {
-            if (self.userAlreadyEnterdFloatingPoint) {
+            if (self.userAlreadyEnteredFloatingPoint) {
                 return;   
             } else {
-                self.userAlreadyEnterdFloatingPoint = YES;
+                self.userAlreadyEnteredFloatingPoint = YES;
             }
         }
         self.display.text = [self.display.text stringByAppendingString:digit];
@@ -46,7 +46,7 @@
         self.display.text = digit;
         self.userIsInTheMiddleOfEnteringANumber = YES;
         if ([digit isEqualToString:@"."]) {
-            self.userAlreadyEnterdFloatingPoint = YES;
+            self.userAlreadyEnteredFloatingPoint = YES;
         }
     }
 
@@ -54,7 +54,7 @@
 
 #define MAX_TEXT_LENGTH_IN_SUBDISPLAY 30
 
-// TODO history表示については再考の余地がある
+// TODO history表示ポリシーについては再考の余地がある
 - (void)updateSubDisplayText:(NSString *)aText clearWhenOverflowing:(BOOL) clearWhenOverflowing {
     if (clearWhenOverflowing 
             && MAX_TEXT_LENGTH_IN_SUBDISPLAY < self.subDisplay.text.length + aText.length) {
@@ -67,7 +67,7 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    self.userAlreadyEnterdFloatingPoint = NO;
+    self.userAlreadyEnteredFloatingPoint = NO;
     [self updateSubDisplayText:self.display.text clearWhenOverflowing:YES];
 }
 
@@ -85,7 +85,7 @@
 
 - (IBAction)clearPressed {
     self.userIsInTheMiddleOfEnteringANumber = NO;
-    self.userAlreadyEnterdFloatingPoint = NO;
+    self.userAlreadyEnteredFloatingPoint = NO;
     self.display.text = @"0";
     self.subDisplay.text = @"";
     [self.brain clear];

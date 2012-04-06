@@ -8,6 +8,12 @@
 
 #import "CalculatorBrain.h"
 
+typedef enum {
+    DOUBLE_OPERAND = 0,
+    SINGLE_OPERAND = 1,
+    VALUE_OR_VAR = 2
+} TypeOfCurrentProgram;
+
 @interface CalculatorBrain()
 @property (nonatomic, strong) NSMutableArray *programStack;
 @end
@@ -34,6 +40,39 @@
 
 - (id)program {
     return [self.programStack copy];
+}
+
++ (TypeOfCurrentProgram) typeOfProgram:(NSString *)program {
+    static NSSet *singleOperandOperations;
+    if (singleOperandOperations == nil) {
+        NSMutableSet *tmp = [[NSMutableSet alloc] init];
+        [tmp addObject:@"sqrt"];
+        [tmp addObject:@"sin"];
+        [tmp addObject:@"cos"];
+        singleOperandOperations = [tmp copy];
+    }
+    
+    static NSSet *doubleOperandOperations;
+    if (doubleOperandOperations == nil) {
+        NSMutableSet *tmp = [[NSMutableSet alloc] init];
+        [tmp addObject:@"+"];
+        [tmp addObject:@"-"];
+        [tmp addObject:@"*"];
+        [tmp addObject:@"/"];
+        doubleOperandOperations = [tmp copy];
+    }
+    
+    if ([singleOperandOperations containsObject:program]) {
+        return SINGLE_OPERAND;
+    } else if ([doubleOperandOperations containsObject:program]) {
+        return DOUBLE_OPERAND;
+    } else {
+        return VALUE_OR_VAR;
+    }
+}
+
++ (NSString *)descriptionOfTopOfStack:(id)program {
+    return @"Implement this in Assignment 2";
 }
 
 + (NSString *) descriptionOfProgram:(id)program {
@@ -90,6 +129,36 @@
     }
     return [self popOperandOffStack:stack];
 }
+
++ (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
+    NSMutableArray *stack;
+    if ([program isKindOfClass:[NSArray class]]) {
+        stack = [program mutableCopy];
+    }
+    
+    for (int i = 0; i < stack.count; i++) {
+        id operand = [stack objectAtIndex:i];
+        if ([operand isKindOfClass:[NSString class]]) {
+            [stack replaceObjectAtIndex:i withObject:[variableValues objectForKey:operand]];
+        }
+    }
+    
+    return [self popOperandOffStack:stack];
+}
+
++ (NSSet *)variablesUsedInProgram:(id)program {
+    NSMutableSet *result;
+    if ([program isKindOfClass:[NSArray class]]) {
+        result = [[NSMutableSet alloc] init];
+        for (id p in program) {
+            if ([p isKindOfClass:[NSString class]]) {
+                [result addObject:p];
+            }
+        }
+    }
+    return [result copy];
+}
+
 
 - (void)clear {
     self.programStack = [[NSMutableArray alloc] init];
