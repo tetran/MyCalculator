@@ -85,6 +85,7 @@
 				4D03AB7C15286D9F00AC0A10 /* MainStoryboard.storyboard */,
 				4D03AB87152871F900AC0A10 /* CalculatorBrain.h */,
 				4D03AB88152871F900AC0A10 /* CalculatorBrain.m */,
+				4DD38A3415319BB60044BF3C /* New Group */,
 				4D03AB7F15286D9F00AC0A10 /* CalculatorViewController.h */,
 				4D03AB8015286D9F00AC0A10 /* CalculatorViewController.m */,
 				4D03AB7115286D9F00AC0A10 /* Supporting Files */,
@@ -101,6 +102,13 @@
 				4D03AB7815286D9F00AC0A10 /* Assignment1-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4DD38A3415319BB60044BF3C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +290,7 @@
 				4D03AB8615286D9F00AC0A10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

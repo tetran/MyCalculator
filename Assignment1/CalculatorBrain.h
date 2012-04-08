@@ -13,6 +13,10 @@
 - (void)pushOperand:(double)operand;
 - (double)performOperation:(NSString *)operation;
 
+- (void)pushOperation:(NSString *)operation;
+- (void)pushVariable:(NSString *)variable;
+
+- (void)undo;
 - (void)clear;
 
 @property (readonly) id program;
