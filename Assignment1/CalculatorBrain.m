@@ -148,7 +148,7 @@ typedef enum {
     if ([program isKindOfClass:[NSArray class]]) {
         stack = [program mutableCopy];
         NSString *aResult;
-        while ((aResult = [self descriptionOfTopOfStack:stack])) {
+        while ((aResult = [self descriptionOfTopOfStack:stack]) && aResult.length) {
             aResult = [self removeOutmostParenthesesFromText:aResult];
             if (!result) {
                 result = aResult;

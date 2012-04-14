@@ -17,6 +17,9 @@
 		4D03AB8115286D9F00AC0A10 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D03AB8015286D9F00AC0A10 /* CalculatorViewController.m */; };
 		4D03AB89152871F900AC0A10 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D03AB88152871F900AC0A10 /* CalculatorBrain.m */; };
 		4D73B5811539AAF00038FFD5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73B5801539AAF00038FFD5 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		4D73B5911539B00A0038FFD5 /* 17-bar-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D73B5901539B00A0038FFD5 /* 17-bar-chart.png */; };
+		4DEAEC901539B3EA00A187D7 /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEAEC8E1539B3EA00A187D7 /* app_icon.png */; };
+		4DEAEC911539B3EA00A187D7 /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEAEC8F1539B3EA00A187D7 /* app_icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +27,10 @@
 		4D03AB6A15286D9F00AC0A10 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4D03AB6C15286D9F00AC0A10 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4D03AB6E15286D9F00AC0A10 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4D03AB7215286D9F00AC0A10 /* Assignment1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Assignment1-Info.plist"; sourceTree = "<group>"; };
+		4D03AB7215286D9F00AC0A10 /* Assignment1-Info.plist */ = {isa = PBXFileReference; path = "Assignment1-Info.plist"; sourceTree = "<group>"; };
 		4D03AB7415286D9F00AC0A10 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D03AB7615286D9F00AC0A10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4D03AB7815286D9F00AC0A10 /* Assignment1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Assignment1-Prefix.pch"; sourceTree = "<group>"; };
+		4D03AB7815286D9F00AC0A10 /* Assignment1-Prefix.pch */ = {isa = PBXFileReference; path = "Assignment1-Prefix.pch"; sourceTree = "<group>"; };
 		4D03AB7915286D9F00AC0A10 /* CalculatorAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalculatorAppDelegate.h; sourceTree = "<group>"; };
 		4D03AB7A15286D9F00AC0A10 /* CalculatorAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorAppDelegate.m; sourceTree = "<group>"; };
 		4D03AB7D15286D9F00AC0A10 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -36,6 +39,9 @@
 		4D03AB87152871F900AC0A10 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		4D03AB88152871F900AC0A10 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
 		4D73B5801539AAF00038FFD5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4D73B5901539B00A0038FFD5 /* 17-bar-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "17-bar-chart.png"; path = "../../../../../Pictures/ICONs/glyphish-icons/icons/17-bar-chart.png"; sourceTree = "<group>"; };
+		4DEAEC8E1539B3EA00A187D7 /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon.png; sourceTree = "<group>"; };
+		4DEAEC8F1539B3EA00A187D7 /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,9 @@
 		4D03AB7115286D9F00AC0A10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4DEAEC8E1539B3EA00A187D7 /* app_icon.png */,
+				4DEAEC8F1539B3EA00A187D7 /* app_icon@2x.png */,
+				4D73B5901539B00A0038FFD5 /* 17-bar-chart.png */,
 				4D03AB7215286D9F00AC0A10 /* Assignment1-Info.plist */,
 				4D03AB7315286D9F00AC0A10 /* InfoPlist.strings */,
 				4D03AB7615286D9F00AC0A10 /* main.m */,
@@ -161,6 +170,9 @@
 			files = (
 				4D03AB7515286D9F00AC0A10 /* InfoPlist.strings in Resources */,
 				4D03AB7E15286D9F00AC0A10 /* MainStoryboard.storyboard in Resources */,
+				4D73B5911539B00A0038FFD5 /* 17-bar-chart.png in Resources */,
+				4DEAEC901539B3EA00A187D7 /* app_icon.png in Resources */,
+				4DEAEC911539B3EA00A187D7 /* app_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +263,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Assignment1/Assignment1-Prefix.pch";
 				INFOPLIST_FILE = "Assignment1/Assignment1-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Assignment1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -262,7 +274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Assignment1/Assignment1-Prefix.pch";
 				INFOPLIST_FILE = "Assignment1/Assignment1-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Assignment1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
