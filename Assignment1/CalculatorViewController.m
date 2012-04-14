@@ -26,6 +26,16 @@
 @synthesize brain = _brain;
 @synthesize testVariableValues = _testVariableValues;
 
+- (void)setUpLabel {
+    [[self.display layer] setCornerRadius:6.0];
+    [self.display setClipsToBounds:YES];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setUpLabel];
+}
+
 - (CalculatorBrain *)brain {
     if (!_brain) {
         _brain = [[CalculatorBrain alloc] init];
@@ -98,7 +108,6 @@
     }
     
     NSString *operation = [sender currentTitle];
-    // double result = [self.brain performOperation:operation];
     [self.brain pushOperation:operation];
     double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:[self.testVariableValues copy]];
     self.display.text = [NSString stringWithFormat:@"%g", result];
@@ -127,6 +136,14 @@
     [self updateVariableDisplay];
 }
 
+- (void)reCulculate {
+    double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:[self.testVariableValues copy]];
+    self.display.text = [NSString stringWithFormat:@"%g", result];
+    self.subDisplay.text = [self latestExpressionOfProgram];
+    self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.userAlreadyEnteredFloatingPoint = NO;
+}
+
 - (IBAction)testPressed:(UIButton *)sender {
     NSString *title = [sender currentTitle];
     if ([title isEqualToString:@"test1"]) {
@@ -137,21 +154,26 @@
         self.testVariableValues = nil;
     } else if ([title isEqualToString:@"test3"]) {
         [self.testVariableValues setObject:[NSNumber numberWithDouble:0] forKey:@"x"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:999999999999999999] forKey:@"a"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:-999999999999999999] forKey:@"b"];
+        [self.testVariableValues setObject:[NSNumber numberWithDouble:3.14150001] forKey:@"a"];
+        [self.testVariableValues setObject:[NSNumber numberWithDouble:-99999999999999999] forKey:@"b"];
     }
     
+    [self reCulculate];
     [self updateVariableDisplay];
 }
 
 - (IBAction)undoPressed {
-    [self.brain undo];
-    
+    if (!self.userIsInTheMiddleOfEnteringANumber) {
+        if (![self.brain.program count]) return;
+        [self.brain undo];
+    }
+    [self reCulculate];
 }
 
 - (void)viewDidUnload {
     [self setSubDisplay:nil];
     [self setVariableDisplay:nil];
+    [self setDisplay:nil];
     [super viewDidUnload];
 }
 @end

@@ -16,6 +16,7 @@
 		4D03AB7E15286D9F00AC0A10 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D03AB7C15286D9F00AC0A10 /* MainStoryboard.storyboard */; };
 		4D03AB8115286D9F00AC0A10 /* CalculatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D03AB8015286D9F00AC0A10 /* CalculatorViewController.m */; };
 		4D03AB89152871F900AC0A10 /* CalculatorBrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D03AB88152871F900AC0A10 /* CalculatorBrain.m */; };
+		4D73B5811539AAF00038FFD5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D73B5801539AAF00038FFD5 /* QuartzCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4D03AB8015286D9F00AC0A10 /* CalculatorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorViewController.m; sourceTree = "<group>"; };
 		4D03AB87152871F900AC0A10 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
 		4D03AB88152871F900AC0A10 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
+		4D73B5801539AAF00038FFD5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D73B5811539AAF00038FFD5 /* QuartzCore.framework in Frameworks */,
 				4D03AB6B15286D9F00AC0A10 /* UIKit.framework in Frameworks */,
 				4D03AB6D15286D9F00AC0A10 /* Foundation.framework in Frameworks */,
 				4D03AB6F15286D9F00AC0A10 /* CoreGraphics.framework in Frameworks */,
@@ -70,6 +73,7 @@
 		4D03AB6915286D9F00AC0A10 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D73B5801539AAF00038FFD5 /* QuartzCore.framework */,
 				4D03AB6A15286D9F00AC0A10 /* UIKit.framework */,
 				4D03AB6C15286D9F00AC0A10 /* Foundation.framework */,
 				4D03AB6E15286D9F00AC0A10 /* CoreGraphics.framework */,
@@ -85,7 +89,6 @@
 				4D03AB7C15286D9F00AC0A10 /* MainStoryboard.storyboard */,
 				4D03AB87152871F900AC0A10 /* CalculatorBrain.h */,
 				4D03AB88152871F900AC0A10 /* CalculatorBrain.m */,
-				4DD38A3415319BB60044BF3C /* New Group */,
 				4D03AB7F15286D9F00AC0A10 /* CalculatorViewController.h */,
 				4D03AB8015286D9F00AC0A10 /* CalculatorViewController.m */,
 				4D03AB7115286D9F00AC0A10 /* Supporting Files */,
@@ -102,13 +105,6 @@
 				4D03AB7815286D9F00AC0A10 /* Assignment1-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4DD38A3415319BB60044BF3C /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

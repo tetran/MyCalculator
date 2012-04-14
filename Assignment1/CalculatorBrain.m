@@ -11,8 +11,8 @@
 typedef enum {
     DOUBLE_OPERAND_OPERATION = 0,
     SINGLE_OPERAND_OPERATION = 1,
-    VALUE = 2,
-    VARIABLE
+    DIGIT = 2,
+    VARIABLE = 3
 } TypeOfProgramElement;
 
 @interface CalculatorBrain()
@@ -71,7 +71,7 @@ typedef enum {
     } else if ([doubleOperandOperations containsObject:programElement]) {
         return DOUBLE_OPERAND_OPERATION;
     } else if ([programElement isKindOfClass:[NSNumber class]]) {
-        return VALUE;
+        return DIGIT;
     } else {
         return VARIABLE;
     }
@@ -82,20 +82,30 @@ typedef enum {
 }
 
 /*
- * 最も外側の括弧を削除することを目的としている。
- * が、現状動かない。
+ * 最も外側の括弧を削除する
  */
-+ (void)removeParentheses:(NSMutableString *)description {
++ (NSString *)removeOutmostParenthesesFromText:(NSString *)text {
+    if ([text characterAtIndex:0] == '(' &&
+        [text characterAtIndex:text.length - 1] == ')') {
+        return [text substringWithRange:NSMakeRange(1, text.length - 2)];
+    } else {
+        return text;
+    }
+    
+    /*
     static NSRegularExpression *regExp;
     if (regExp == nil) {
         NSString *pattern = [NSString stringWithFormat:@"%@%@%@%@%@", @"^", [NSRegularExpression escapedPatternForString:@"("], @"(.*)", [NSRegularExpression escapedPatternForString:@")"], @"$"];
         regExp = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
     }
-    NSMutableString *string = [NSMutableString stringWithString:@"(hello)"];
-    [regExp replaceMatchesInString:string options:0 range:NSMakeRange(0, [string length]) withTemplate:@"$0"];
-    NSLog(@"%@", string);
     
-    [regExp replaceMatchesInString:description options:0 range:NSMakeRange(0, [description length]) withTemplate:@"$0"];
+    NSTextCheckingResult *match = [regExp firstMatchInString:text options:0 range:NSMakeRange(0, text.length)];
+    if (match.numberOfRanges) {
+        return [text substringWithRange:[match rangeAtIndex:1]];
+    } else {
+        return text;
+    }
+     */
 }
 
 + (NSString *)descriptionOfTopOfStack:(NSMutableArray *)stack {
@@ -107,21 +117,28 @@ typedef enum {
     NSMutableString *result = [[NSMutableString alloc] init];
     
     TypeOfProgramElement element = [self elementTypeOf:topOfStack];
-    if (element == VALUE || element == VARIABLE) {
+    
+    if (element == DIGIT || element == VARIABLE) {
         [result appendString:[topOfStack description]];
     } else if (element == SINGLE_OPERAND_OPERATION) {
-        [result appendString:[NSString stringWithFormat:@"%@%@%@%@", topOfStack, @"(", [self descriptionOfTopOfStack:stack], @")"]];
+        id tmp = [self descriptionOfTopOfStack:stack];
+        if (tmp != nil) {
+            if ([tmp isKindOfClass:[NSMutableString class]]) {
+                tmp = [self removeOutmostParenthesesFromText:tmp];
+            }
+            [result appendString:[NSString stringWithFormat:@"%@%@%@%@", topOfStack, @"(", tmp, @")"]];
+        }
     } else if (element == DOUBLE_OPERAND_OPERATION) {
         NSString *prev = [self descriptionOfTopOfStack:stack];
         NSString *prev2 = [self descriptionOfTopOfStack:stack];
-        [result appendString:[NSString stringWithFormat:@"%@ %@ %@", prev2, topOfStack, prev]];
-        result = [self wrapByParentheses:result];
+        if (prev != nil && prev2 != nil) {
+            [result appendString:[NSString stringWithFormat:@"%@ %@ %@", prev2, topOfStack, prev]];
+            result = [self wrapByParentheses:result];
+        }
     } else {
         return nil;
     }
-    
-    [self removeParentheses:result];
-    
+        
     return result;
 }
 
@@ -129,9 +146,10 @@ typedef enum {
     NSMutableArray *stack;
     NSString *result;
     if ([program isKindOfClass:[NSArray class]]) {
-        NSString *aResult;
         stack = [program mutableCopy];
+        NSString *aResult;
         while ((aResult = [self descriptionOfTopOfStack:stack])) {
+            aResult = [self removeOutmostParenthesesFromText:aResult];
             if (!result) {
                 result = aResult;
             } else {
@@ -187,9 +205,6 @@ typedef enum {
 }
 
 + (double)runProgram:(id)program {
-    NSLog(@"%@", program);
-    NSLog(@"%@", [self descriptionOfProgram:program]);
-
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
         stack = [program mutableCopy];
