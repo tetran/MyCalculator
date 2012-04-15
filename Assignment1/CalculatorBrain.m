@@ -12,7 +12,8 @@ typedef enum {
     DOUBLE_OPERAND_OPERATION = 0,
     SINGLE_OPERAND_OPERATION = 1,
     DIGIT = 2,
-    VARIABLE = 3
+    VARIABLE = 3,
+    SPECIAL_VARIABLE = 4
 } TypeOfProgramElement;
 
 @interface CalculatorBrain()
@@ -66,10 +67,17 @@ typedef enum {
         doubleOperandOperations = [[NSSet alloc] initWithObjects:@"+", @"-", @"*", @"/", nil];
     }
     
+    static NSSet *specialVariables;
+    if (specialVariables == nil) {
+        specialVariables = [[NSSet alloc] initWithObjects:@"π", nil];
+    }
+    
     if ([singleOperandOperations containsObject:programElement]) {
         return SINGLE_OPERAND_OPERATION;
     } else if ([doubleOperandOperations containsObject:programElement]) {
         return DOUBLE_OPERAND_OPERATION;
+    } else if ([specialVariables containsObject:programElement]) {
+        return SPECIAL_VARIABLE;
     } else if ([programElement isKindOfClass:[NSNumber class]]) {
         return DIGIT;
     } else {
@@ -118,7 +126,7 @@ typedef enum {
     
     TypeOfProgramElement element = [self elementTypeOf:topOfStack];
     
-    if (element == DIGIT || element == VARIABLE) {
+    if (element == DIGIT || element == VARIABLE || element == SPECIAL_VARIABLE) {
         [result appendString:[topOfStack description]];
     } else if (element == SINGLE_OPERAND_OPERATION) {
         id tmp = [self descriptionOfTopOfStack:stack];
@@ -228,7 +236,6 @@ typedef enum {
             [stack replaceObjectAtIndex:i withObject:variableValue];
         }
     }
-    
     return [self popOperandOffStack:stack];
 }
 

@@ -7,37 +7,29 @@
 //
 
 #import "GraphViewController.h"
+#import "GraphView.h"
 
-@interface GraphViewController ()
-
+@interface GraphViewController () <GraphViewDataSource>
+@property (nonatomic, weak) IBOutlet GraphView *graphView;
 @end
 
 @implementation GraphViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+@synthesize graphView = _graphView;
+
+
+- (void)setGraphView:(GraphView *)graphView {
+    _graphView = graphView;
+    
+    self.graphView.dataSource = self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+- (CGFloat)valueOfYForX:(CGFloat)x {
+    return 0;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES;
 }
 
 @end

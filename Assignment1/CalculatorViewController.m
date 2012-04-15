@@ -9,7 +9,7 @@
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
 
-@interface CalculatorViewController ()
+@interface CalculatorViewController () 
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic) BOOL userAlreadyEnteredFloatingPoint;
 @property (nonatomic, strong) CalculatorBrain *brain;
@@ -20,7 +20,6 @@
 
 @synthesize display = _display;
 @synthesize subDisplay = _subDisplay;
-@synthesize variableDisplay = _variableDisplay;
 @synthesize userIsInTheMiddleOfEnteringANumber= _userIsInTheMiddleOfEnteringANumber;
 @synthesize userAlreadyEnteredFloatingPoint = _userAlreadyEnterdFloatingPoint;
 @synthesize brain = _brain;
@@ -29,6 +28,8 @@
 - (void)setUpLabel {
     [[self.display layer] setCornerRadius:6.0];
     [self.display setClipsToBounds:YES];
+    [[self.subDisplay layer] setCornerRadius:6.0];
+    [self.subDisplay setClipsToBounds:YES];
 }
 
 - (void)viewDidLoad {
@@ -50,21 +51,20 @@
     return _testVariableValues;
 }
 
-- (void)updateVariableDisplay {
-    NSSet *variables = [CalculatorBrain variablesUsedInProgram:self.brain.program];
-    NSMutableString *display = [NSMutableString stringWithString:@""];
-    for (id variable in variables) {
-        id variableValue = [self.testVariableValues objectForKey:variable];
-        if (variableValue) {
-            [display appendFormat:@"  %@ %@ %@", variable, @"=", variableValue];
-        }
+- (void)updateDisplayWith:(double)value {
+    NSString *valueString = [NSString stringWithFormat:@"%g", value];
+    if (20 < valueString.length) {
+        valueString = [NSString stringWithFormat:@"%e", value];
     }
-    self.variableDisplay.text = display;
+    self.display.text = valueString;
 }
 
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = [sender currentTitle];
     if (self.userIsInTheMiddleOfEnteringANumber) {
+        if (20 <= self.display.text.length) {
+            return;
+        }
         // avoid input of duplicate floating points
         if ([digit isEqualToString:@"."]) {
             if (self.userAlreadyEnteredFloatingPoint) {
@@ -81,7 +81,6 @@
             self.userAlreadyEnteredFloatingPoint = YES;
         }
     }
-    [self updateVariableDisplay];
 }
 
 - (NSString *)latestExpressionOfProgram {
@@ -97,12 +96,23 @@
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.userAlreadyEnteredFloatingPoint = NO;
     self.subDisplay.text = [self latestExpressionOfProgram];
-    
-    [self updateVariableDisplay];
 }
 
-
 - (IBAction)operationPressed:(id)sender {
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        [self enterPressed];
+    }
+    
+    if ([self.brain.program count]) {
+        NSString *operation = [sender currentTitle];
+        [self.brain pushOperation:operation];
+        double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:[self.testVariableValues copy]];
+        [self updateDisplayWith:result];
+        self.subDisplay.text = [self latestExpressionOfProgram];    
+    }
+}
+
+- (IBAction)specialVariablePressed:(id)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
     }
@@ -110,10 +120,8 @@
     NSString *operation = [sender currentTitle];
     [self.brain pushOperation:operation];
     double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:[self.testVariableValues copy]];
-    self.display.text = [NSString stringWithFormat:@"%g", result];
-    self.subDisplay.text = [self latestExpressionOfProgram];
-    
-    [self updateVariableDisplay];
+    [self updateDisplayWith:result];
+    self.subDisplay.text = [self latestExpressionOfProgram];    
 }
 
 - (IBAction)clearPressed {
@@ -122,8 +130,6 @@
     self.display.text = @"0";
     self.subDisplay.text = @"";
     [self.brain clear];
-    
-    [self updateVariableDisplay];
 }
 
 - (IBAction)variablePressed:(UIButton *)sender {
@@ -132,35 +138,16 @@
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.userAlreadyEnteredFloatingPoint = NO;
     self.subDisplay.text = [self latestExpressionOfProgram];
-    
-    [self updateVariableDisplay];
 }
 
 - (void)reCulculate {
     double result = [CalculatorBrain runProgram:self.brain.program usingVariableValues:[self.testVariableValues copy]];
-    self.display.text = [NSString stringWithFormat:@"%g", result];
+    [self updateDisplayWith:result];
     self.subDisplay.text = [self latestExpressionOfProgram];
     self.userIsInTheMiddleOfEnteringANumber = NO;
     self.userAlreadyEnteredFloatingPoint = NO;
 }
 
-- (IBAction)testPressed:(UIButton *)sender {
-    NSString *title = [sender currentTitle];
-    if ([title isEqualToString:@"test1"]) {
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:3] forKey:@"x"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:2.43] forKey:@"a"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:-4] forKey:@"b"];
-    } else if ([title isEqualToString:@"test2"]) {
-        self.testVariableValues = nil;
-    } else if ([title isEqualToString:@"test3"]) {
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:0] forKey:@"x"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:3.14150001] forKey:@"a"];
-        [self.testVariableValues setObject:[NSNumber numberWithDouble:-99999999999999999] forKey:@"b"];
-    }
-    
-    [self reCulculate];
-    [self updateVariableDisplay];
-}
 
 - (IBAction)undoPressed {
     if (!self.userIsInTheMiddleOfEnteringANumber) {
@@ -170,9 +157,19 @@
     [self reCulculate];
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowGraph"]) {
+        NSLog(@"%@", @"prepareForSegue called");
+    }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
+
 - (void)viewDidUnload {
     [self setSubDisplay:nil];
-    [self setVariableDisplay:nil];
     [self setDisplay:nil];
     [super viewDidUnload];
 }

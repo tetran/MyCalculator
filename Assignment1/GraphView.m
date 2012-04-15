@@ -7,25 +7,66 @@
 //
 
 #import "GraphView.h"
+#import "AxesDrawer.h"
+
+#define DEFAULT_SCALE 10
+
+@interface GraphView()
+@end
 
 @implementation GraphView
 
-- (id)initWithFrame:(CGRect)frame
-{
+@synthesize scale = _scale, origin = _origin;
+@synthesize dataSource = _dataSource;
+
+
+- (CGFloat)scale {
+    if (!_scale) {
+        return DEFAULT_SCALE;
+    } else {
+        return _scale;
+    }
+}
+
+- (void)setScale:(CGFloat)scale {
+    if (_scale != scale) {
+        _scale = scale;
+    }
+    [self setNeedsDisplay];
+}
+
+- (CGPoint)origin {
+    return _origin;
+}
+
+- (void)setOrigin:(CGPoint)origin {
+    _origin = origin;
+    [self setNeedsDisplay];
+}
+
+- (void)setUp {
+    self.contentMode = UIViewContentModeRedraw;
+}
+
+- (void)awakeFromNib {
+    [self setUp];
+}
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self setUp];
     }
     return self;
 }
 
-/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    NSLog(@"origin is %@", NSStringFromCGPoint(self.origin));
+    [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
 }
-*/
+
 
 @end

@@ -14,9 +14,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D03AB6515286D9F00AC0A10"
-               BuildableName = "Assignment1.app"
-               BlueprintName = "Assignment1"
-               ReferencedContainer = "container:Assignment1.xcodeproj">
+               BuildableName = "RPNCalculator.app"
+               BlueprintName = "RPNCalculator"
+               ReferencedContainer = "container:RPNCalculator.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,9 +32,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D03AB6515286D9F00AC0A10"
-            BuildableName = "Assignment1.app"
-            BlueprintName = "Assignment1"
-            ReferencedContainer = "container:Assignment1.xcodeproj">
+            BuildableName = "RPNCalculator.app"
+            BlueprintName = "RPNCalculator"
+            ReferencedContainer = "container:RPNCalculator.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D03AB6515286D9F00AC0A10"
-            BuildableName = "Assignment1.app"
-            BlueprintName = "Assignment1"
-            ReferencedContainer = "container:Assignment1.xcodeproj">
+            BuildableName = "RPNCalculator.app"
+            BlueprintName = "RPNCalculator"
+            ReferencedContainer = "container:RPNCalculator.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D03AB6515286D9F00AC0A10"
-            BuildableName = "Assignment1.app"
-            BlueprintName = "Assignment1"
-            ReferencedContainer = "container:Assignment1.xcodeproj">
+            BuildableName = "RPNCalculator.app"
+            BlueprintName = "RPNCalculator"
+            ReferencedContainer = "container:RPNCalculator.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
