@@ -8,6 +8,7 @@
 
 #import "CalculatorViewController.h"
 #import "CalculatorBrain.h"
+#import "GraphViewController.h"
 
 @interface CalculatorViewController () 
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
@@ -25,16 +26,23 @@
 @synthesize brain = _brain;
 @synthesize testVariableValues = _testVariableValues;
 
-- (void)setUpLabel {
+- (void)setUp {
     [[self.display layer] setCornerRadius:6.0];
     [self.display setClipsToBounds:YES];
     [[self.subDisplay layer] setCornerRadius:6.0];
     [self.subDisplay setClipsToBounds:YES];
+    
+    self.title = @"Calculator";
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.splitViewController.delegate = self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpLabel];
+    [self setUp];
 }
 
 - (CalculatorBrain *)brain {
@@ -160,12 +168,44 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowGraph"]) {
-        NSLog(@"%@", @"prepareForSegue called");
+        [segue.destinationViewController setExpression:[self latestExpressionOfProgram]];
+        [segue.destinationViewController setProgram:[self.brain.program copy]];
     }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
+
+
+// Implementations of UISplitViewControllerDelegate protocol
+
+- (id<SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter {
+    id detailViewController = [self.splitViewController.viewControllers lastObject];
+    if (![detailViewController conformsToProtocol:@protocol(SplitViewBarButtonItemPresenter)]) {
+        detailViewController = nil;
+    }
+    return detailViewController;
+}
+
+- (BOOL)splitViewController:(UISplitViewController *)svc 
+   shouldHideViewController:(UIViewController *)vc 
+              inOrientation:(UIInterfaceOrientation)orientation {
+    return UIInterfaceOrientationIsPortrait(orientation);
+}
+
+- (void)splitViewController:(UISplitViewController *)svc 
+     willHideViewController:(UIViewController *)aViewController 
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem 
+       forPopoverController:(UIPopoverController *)pc {
+    barButtonItem.title = self.title;
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc 
+     willShowViewController:(UIViewController *)aViewController 
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem {
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
 }
 
 - (void)viewDidUnload {

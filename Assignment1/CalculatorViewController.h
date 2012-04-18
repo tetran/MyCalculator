@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "SplitViewBarButtonItemPresenter.h"
+#import "LabelWithPadding.h"
 
-@interface CalculatorViewController : UIViewController
+@interface CalculatorViewController : UIViewController <UISplitViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *display;
-@property (weak, nonatomic) IBOutlet UILabel *subDisplay;
+@property (weak, nonatomic) IBOutlet LabelWithPadding *display;
+@property (weak, nonatomic) IBOutlet LabelWithPadding *subDisplay;
 
 @end

@@ -65,6 +65,7 @@
 - (void)drawRect:(CGRect)rect
 {
     NSLog(@"origin is %@", NSStringFromCGPoint(self.origin));
+    NSLog(@"%f\n", [self.dataSource valueOfYForX:100]);
     [AxesDrawer drawAxesInRect:rect originAtPoint:self.origin scale:self.scale];
 }
 

@@ -13,7 +13,7 @@ typedef enum {
     SINGLE_OPERAND_OPERATION = 1,
     DIGIT = 2,
     VARIABLE = 3,
-    SPECIAL_VARIABLE = 4
+    NO_OPERAND_OPERATION = 4
 } TypeOfProgramElement;
 
 @interface CalculatorBrain()
@@ -77,7 +77,7 @@ typedef enum {
     } else if ([doubleOperandOperations containsObject:programElement]) {
         return DOUBLE_OPERAND_OPERATION;
     } else if ([specialVariables containsObject:programElement]) {
-        return SPECIAL_VARIABLE;
+        return NO_OPERAND_OPERATION;
     } else if ([programElement isKindOfClass:[NSNumber class]]) {
         return DIGIT;
     } else {
@@ -126,7 +126,7 @@ typedef enum {
     
     TypeOfProgramElement element = [self elementTypeOf:topOfStack];
     
-    if (element == DIGIT || element == VARIABLE || element == SPECIAL_VARIABLE) {
+    if (element == DIGIT || element == VARIABLE || element == NO_OPERAND_OPERATION) {
         [result appendString:[topOfStack description]];
     } else if (element == SINGLE_OPERAND_OPERATION) {
         id tmp = [self descriptionOfTopOfStack:stack];
@@ -221,6 +221,8 @@ typedef enum {
 }
 
 + (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
+    NSLog(@"program is %@, with variable %@", program, variableValues);
+    
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
         stack = [program mutableCopy];
@@ -228,6 +230,7 @@ typedef enum {
     
     for (int i = 0; i < stack.count; i++) {
         id programElement = [stack objectAtIndex:i];
+        NSLog(@"program element is %@", programElement);
         if ([self elementTypeOf:programElement] == VARIABLE) {
             id variableValue = [variableValues objectForKey:programElement];
             if (variableValue == nil) {
