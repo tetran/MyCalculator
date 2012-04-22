@@ -22,7 +22,7 @@
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="dX1-Gk-AaH">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items/>
                             </toolbar>
                         </subviews>
@@ -35,7 +35,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="634" y="111"/>
+            <point key="canvasLocation" x="634" y="136"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="aHH-ls-AxB">
@@ -447,6 +447,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="graphPressed" destination="FCG-Gn-94p" eventType="touchUpInside" id="XF7-Hh-DhO"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -466,8 +469,8 @@
         <class className="CalculatorViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subDisplay" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="display" candidateClass="LabelWithPadding"/>
+                <relationship kind="outlet" name="subDisplay" candidateClass="LabelWithPadding"/>
             </relationships>
         </class>
         <class className="GraphView" superclassName="UIView">

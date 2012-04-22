@@ -10,6 +10,5 @@
 #import "SplitViewBarButtonItemPresenter.h"
 
 @interface GraphViewController : UIViewController <SplitViewBarButtonItemPresenter>
-@property (nonatomic, strong) NSString *expression;
 @property (nonatomic, strong) id program;
 @end

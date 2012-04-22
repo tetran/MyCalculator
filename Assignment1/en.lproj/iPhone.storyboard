@@ -403,7 +403,7 @@
             </objects>
             <point key="canvasLocation" x="614" y="242"/>
         </scene>
-        <!--Graph View Controller - Graph-->
+        <!--Graph View Controller-->
         <scene sceneID="xXB-fn-XB9">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZp-Zc-AzJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -420,7 +420,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Graph" id="Flh-kd-lmb"/>
+                    <navigationItem key="navigationItem" id="Flh-kd-lmb"/>
                     <connections>
                         <outlet property="graphView" destination="kgV-ym-1eW" id="hdy-MW-S5E"/>
                     </connections>
@@ -447,6 +447,28 @@
             <point key="canvasLocation" x="131" y="349"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CalculatorViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="display" candidateClass="LabelWithPadding"/>
+                <relationship kind="outlet" name="subDisplay" candidateClass="LabelWithPadding"/>
+            </relationships>
+        </class>
+        <class className="GraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="graphView" candidateClass="GraphView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="LabelWithPadding" superclassName="UILabel">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LabelWithPadding.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

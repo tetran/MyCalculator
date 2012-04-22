@@ -168,13 +168,18 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowGraph"]) {
-        [segue.destinationViewController setExpression:[self latestExpressionOfProgram]];
-        [segue.destinationViewController setProgram:[self.brain.program copy]];
+        [segue.destinationViewController setProgram:self.brain.program];
+        [segue.destinationViewController navigationItem].title = [self latestExpressionOfProgram];
     }
 }
 
+- (IBAction)graphPressed {
+    [[self.splitViewController.viewControllers lastObject] setProgram:self.brain.program];
+    [[self.splitViewController.viewControllers lastObject] navigationItem].title = [self latestExpressionOfProgram];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) || UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
 }
 
 

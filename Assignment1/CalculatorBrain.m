@@ -221,7 +221,7 @@ typedef enum {
 }
 
 + (double)runProgram:(id)program usingVariableValues:(NSDictionary *)variableValues {
-    NSLog(@"program is %@, with variable %@", program, variableValues);
+    // NSLog(@"program is %@, with variable x:%@", program, [variableValues valueForKey:@"x"]);
     
     NSMutableArray *stack;
     if ([program isKindOfClass:[NSArray class]]) {
@@ -230,7 +230,6 @@ typedef enum {
     
     for (int i = 0; i < stack.count; i++) {
         id programElement = [stack objectAtIndex:i];
-        NSLog(@"program element is %@", programElement);
         if ([self elementTypeOf:programElement] == VARIABLE) {
             id variableValue = [variableValues objectForKey:programElement];
             if (variableValue == nil) {
